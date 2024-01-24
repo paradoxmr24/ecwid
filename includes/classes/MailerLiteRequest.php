@@ -2,7 +2,7 @@
 class MailerLiteRequest
 {
 
-    static $url = 'https://api.mailerlite.com/api/v2/subscribers';
+    static $url = 'https://api.mailerlite.com/api/v2/subscribers/';
     static $apiKey = ''; // bugfix
 
     function __construct()
@@ -15,7 +15,7 @@ class MailerLiteRequest
         $curl = curl_init();
 
         curl_setopt_array($curl, [
-            CURLOPT_URL => MailerLiteRequest::$url . '/' . $email,
+            CURLOPT_URL => MailerLiteRequest::$url . $email,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,
@@ -24,9 +24,9 @@ class MailerLiteRequest
             CURLOPT_CUSTOMREQUEST => "PUT",
             CURLOPT_POSTFIELDS => json_encode([
                 'fields' => [
-                    '1Bestellung' => array_shift($dates),
-                    '2Bestellung' => array_shift($dates),
-                    '3Bestellung' => array_shift($dates),
+                    'custom_field_1bestellung' => array_shift($dates),
+                    'custom_field_2bestellung' => array_shift($dates),
+                    'custom_field_3bestellung' => array_shift($dates),
                 ]
             ]),
             CURLOPT_HTTPHEADER => [

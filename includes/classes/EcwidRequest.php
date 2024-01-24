@@ -2,11 +2,11 @@
 class EcwidRequest
 {
     static $urls = array(
-        'ORDER' => 'https://app.ecwid.com/api/v3/{storeId}/orders',
+        'ORDER' => 'https://app.ecwid.com/api/v3/44217093/orders',
     );
 
     public $url, $totalPages, $currentPage;
-    static $token = ''; // bugfix
+    static $token = 'secret_2S6Njz7EUVeNkZwy9bif2fx7hMic4PqR';
 
     function __construct($type)
     {
@@ -17,6 +17,7 @@ class EcwidRequest
 
     function makeRequest($query)
     {
+        echo 'makeRequest';
         $curl = curl_init();
         curl_setopt_array($curl, [
             CURLOPT_URL => $this->url . '?' . http_build_query($query),
@@ -65,9 +66,9 @@ class EcwidRequest
         $this->currentPage = ($response['offset'] / 100) + 1;
         $orders = $response['items'];
 
-        // echo 'After';
-        // echo $this->totalPages;
-        // echo $this->currentPage;
+        echo 'After';
+        echo $this->totalPages;
+        echo $this->currentPage;
 
         return $orders;
     }
