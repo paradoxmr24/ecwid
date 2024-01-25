@@ -12,12 +12,18 @@ function saveCustomersInBatches($list)
 function getCustomers()
 {
     $path = __DIR__ . '/../customers';
-    $customers = array();
     foreach (array_diff(scandir($path), ['.', '..']) as $file) {
         $customers = unserialize(file_get_contents($path . '/' . $file));
 
-        return $customers;
+        return [$customers, $file];
     }
 
     return null;
+}
+
+function deleteCustomerFile($file)
+{
+    $path = __DIR__ . '/../customers/' . $file;
+
+    unlink($path);
 }

@@ -62,8 +62,8 @@ class EcwidRequest
             return null;
         }
 
-        // $this->totalPages = ceil($response['total'] / 100);
-        $this->totalPages = 1;
+        $this->totalPages = ceil($response['total'] / 100);
+        // $this->totalPages = 1;
         $this->currentPage = ($response['offset'] / 100) + 1;
         $orders = $response['items'];
 

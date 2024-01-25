@@ -11,7 +11,9 @@ class MailerLiteRequest
 
     function updateSubscriber($email, $dates)
     {
-
+        $date1 = array_shift($dates);
+        $date2 = array_shift($dates);
+        $date3 = array_shift($dates);
         $curl = curl_init();
 
         curl_setopt_array($curl, [
@@ -24,9 +26,9 @@ class MailerLiteRequest
             CURLOPT_CUSTOMREQUEST => "PUT",
             CURLOPT_POSTFIELDS => json_encode([
                 'fields' => [
-                    'custom_field_1bestellung' => array_shift($dates),
-                    'custom_field_2bestellung' => array_shift($dates),
-                    'custom_field_3bestellung' => array_shift($dates),
+                    'custom_field_1bestellung' => $date1,
+                    'custom_field_2bestellung' => $date2,
+                    'custom_field_3bestellung' => $date3,
                 ]
             ]),
             CURLOPT_HTTPHEADER => [
@@ -46,6 +48,10 @@ class MailerLiteRequest
             echo "cURL Error #:" . $err;
             return null;
         }
+
+        echo "Updated -> email: " . $email . " Dates: " . implode(', ', [$date1, $date2, $date3]) . "<br>";
+
+        echo $response . "<br><br>";
 
         return json_decode($response, true);
     }
